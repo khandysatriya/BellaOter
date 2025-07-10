@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bella Oter</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'raven-rose': '#E8D0D0',
+            'raven-sage': '#C5D5C5',
+            'raven-lavender': '#E0D7EC',
+            'raven-mint': '#D1ECEC',
+            'raven-charcoal': '#3A4553',
+          },
+          fontFamily: {
+            serif: ['Playfair Display', 'serif'],
+            sans: ['Inter', 'sans-serif']
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:ital,wght@0,600;1,700&display=swap" rel="stylesheet">
+</head>
+
+<body class="bg-raven-rose/10 font-sans text-raven-charcoal transition-all duration-500 ease-in-out">
+
+  <main class="max-w-md mx-auto px-4 py-8">
+
+    <!-- Logo and Title -->
+    <div class="flex flex-col items-center text-center mb-6">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 mb-2" viewBox="0 0 64 64" fill="#8FA085">
+        <circle cx="32" cy="32" r="30" stroke="#3A4553" stroke-width="2" fill="#B8DDD0" />
+        <path d="M18 22c2 4 6 2 10 5s4 7 8 8 10-4 8-10-10-10-16-10-10 2-10 7z" fill="#8FA085" />
+      </svg>
+      <h1 class="text-3xl font-serif font-bold">Bella Oter</h1>
+    </div>
+
+    <!-- Question Section -->
+    <div id="question" class="text-center transition-opacity duration-500">
+      <p class="mb-6 text-raven-charcoal/70">What does your body crave today?</p>
+      <div class="space-y-4">
+        <button data-choice="grounding" class="option-btn w-full py-4 rounded-lg bg-raven-sage/70 text-lg font-medium hover:bg-raven-sage transition-all">Grounding</button>
+        <button data-choice="softness" class="option-btn w-full py-4 rounded-lg bg-raven-lavender/70 text-lg font-medium hover:bg-raven-lavender transition-all">Softness</button>
+        <button data-choice="energy" class="option-btn w-full py-4 rounded-lg bg-raven-rose/70 text-lg font-medium hover:bg-raven-rose transition-all">Energy</button>
+        <button data-choice="freedom" class="option-btn w-full py-4 rounded-lg bg-raven-mint/70 text-lg font-medium hover:bg-raven-mint transition-all">Freedom</button>
+      </div>
+    </div>
+
+    <!-- Result Section -->
+    <div id="result" class="hidden transition-opacity duration-500 mt-8 bg-white/70 p-4 rounded-lg shadow text-center">
+      <h2 id="result-title" class="text-2xl font-serif font-semibold mb-2"></h2>
+      <p id="result-subtitle" class="text-sm mb-4 text-raven-charcoal/70"></p>
+      <p id="result-description" class="text-base text-raven-charcoal mb-6"></p>
+      <button id="start-over-btn" class="text-sm text-raven-charcoal underline">Start Over</button>
+    </div>
+  </main>
+
+  <!-- JavaScript Logic -->
+  <script>
+    const questionEl = document.getElementById('question');
+    const resultEl = document.getElementById('result');
+    const titleEl = document.getElementById('result-title');
+    const subtitleEl = document.getElementById('result-subtitle');
+    const descriptionEl = document.getElementById('result-description');
+    const startOverBtn = document.getElementById('start-over-btn');
+    const optionBtns = document.querySelectorAll('.option-btn');
+
+    const data = {
+      grounding: {
+        title: "The Rooted One",
+        subtitle: "Earth Collection",
+        description: "Feel stable and connected with calming earth-toned apparel."
+      },
+      softness: {
+        title: "The Gentle Touch",
+        subtitle: "Comfort Collection",
+        description: "Wrap yourself in soft pastels and gentle fabrics."
+      },
+      energy: {
+        title: "The Energizer",
+        subtitle: "Vitality Collection",
+        description: "Stay active and empowered with performance-focused gear."
+      },
+      freedom: {
+        title: "The Unbound",
+        subtitle: "Liberation Collection",
+        description: "Move without limits. Freedom is your second skin."
+      }
+    };
+
+    optionBtns.forEach(button => {
+      button.addEventListener('click', () => {
+        const choice = button.dataset.choice;
+        const selected = data[choice];
+
+        titleEl.textContent = selected.title;
+        subtitleEl.textContent = selected.subtitle;
+        descriptionEl.textContent = selected.description;
+
+        questionEl.classList.add('opacity-0');
+        setTimeout(() => {
+          questionEl.classList.add('hidden');
+          resultEl.classList.remove('hidden');
+          resultEl.classList.remove('opacity-0');
+          resultEl.classList.add('opacity-100');
+        }, 500);
+      });
+    });
+
+    startOverBtn.addEventListener('click', () => {
+      resultEl.classList.add('opacity-0');
+      setTimeout(() => {
+        resultEl.classList.add('hidden');
+        questionEl.classList.remove('hidden');
+        questionEl.classList.remove('opacity-0');
+        questionEl.classList.add('opacity-100');
+      }, 500);
+    });
+  </script>
+
+</body>
+</html>
+
+<footer class="text-center text-sm mt-8 text-raven-charcoal/50">
+ &copy 2025 Bella Oter 
+</footer>
